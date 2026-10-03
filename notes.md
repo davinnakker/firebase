@@ -25,20 +25,20 @@ limit
 # Data Model
 
 users/{user_id}
-    username
-    first_name
-    last_name
-    email
-    created_at
+    - username
+    - first_name
+    - last_name
+    - email
+    - created_at
 
 concepts/{concept_id}
-    user_id
-    concept_name
-    notes
-    content
-    created_at
-    notifications/{notification_id}
-        reminder_time
-        past_due
-        reviewed
+    - user_id
+    - concept_name
+    - notes
+    - content
+    - created_at
+    - notifications/{notification_id}
+        -- reminder_time
+        -- past_due
+        -- reviewed
 
