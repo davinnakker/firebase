@@ -22,24 +22,24 @@ user creates.
 
 The Cloud Database that I am using is a Document Database provide by Google called Firestore. 
 
-My Data Model:
-users/{user_id}
-    username
-    first_name
-    last_name
-    email
-    created_at
+### My Data Model:
+- users/{user_id}
+    - username
+    - first_name
+    - last_name
+    - email
+    - created_at
 
-concepts/{concept_id}
-    user_id
-    concept_name
-    notes
-    content
-    created_at
-    notifications/{notification_id}
-        reminder_time
-        past_due
-        reviewed
+- concepts/{concept_id}
+    - user_id
+    - concept_name
+    - notes
+    - content
+    - created_at
+    - notifications/{notification_id}
+        - reminder_time
+        - past_due
+        - reviewed
 
 # Development Environment
 
@@ -47,21 +47,12 @@ concepts/{concept_id}
 * **Package Manager:** npm
 * **Database / Services:** Firebase
 
-{Describe the tools that you used to develop the software}
-
-{Describe the programming language that you used and any libraries.}
-
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
-
-- [Web Site Name](http://url.link.goes.here)
-- [Web Site Name](http://url.link.goes.here)
+- [Firebase Official Documentation](https://firebase.google.com/docs/firestore?_gl=1*yfojp3*_up*MQ..&gclid=Cj0KCQjwz4LWBhCMARIsAFEG5MpvLYqqlOvC_J25sXqi-hSOYR-2usgi_uMdQN8FJlFToynphmn5M9MaApcNEALw_wcB&gbraid=0AAAAADpUDOigov5QCeAP6eS5ZB8xZWyCm)
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
-
-- Item 1
-- Item 2
-- Item 3
+- Write application specific query functions
+- Add more security and IAM rules
+- Make all function atomic and provide rollback if there is a failure
