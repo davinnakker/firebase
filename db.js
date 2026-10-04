@@ -27,6 +27,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+
+
+// CRUD FUNCTIONS
+
 async function createUser(user) {
 	const ref = await addDoc(collection(db, 'users'), {
 		...user,
@@ -67,8 +71,7 @@ async function createConcept(userId, concept, reviewTimes) {
 async function getConcepts(userId) {
 	const q = query(
 		collection(db, 'concepts'),
-		where("user_id", "==", userId),
-		orderBy("created_at", 'desc')
+		where("user_id", "==", userId)
 	);
 	const snapshot = await getDocs(q);
 	return snapshot.docs.map(document => document.data());
@@ -83,10 +86,9 @@ async function updateConcept(conceptId, newData) {
 async function deleteConcept(conceptId) {
 	const q = query(
 		collection(db, 'concepts', conceptId, 'notifications'),
-		where("concept_id", "==", conceptId)
 	);
 	const notificationSnapshot = await getDocs(q);
-	notificationSnapshot.docs.forEach(async (document) => {
+	await notificationSnapshot.docs.forEach(async (document) => {
 		await deleteDoc(doc(db, 'concepts', conceptId, 'notifications', document.id));
 	})
 	await deleteDoc(doc(db, 'concepts', conceptId));
@@ -102,17 +104,36 @@ async function main() {
 		"email": "johnsmith@example.com"
 	});
 
+	const otherUserId = await createUser({
+		"username": "ralphlauren",
+		"first_name": "Ralph",
+		"last_name": "Lauren",
+		"email": "bigralph321@example.com"
+	});
+
 	// create a concept 
 	const concept = {
 		"concept_name": "OS Fundamentals",
 		"notes": "The OS allows for multiple processes to be running concurrently",
 		"content": "Chapter 1: Virtualization",
 	};
+	const concept2 = {
+		"concept_name": "Processes",
+		"notes": "The OS uses different algorithms to decide what process gets to run when",
+		"content": "Chapter 2: CPU Scheduling",	
+	}
 	const reviewTimes = [1, 3, 7, 14];
 	const conceptId = await createConcept(userId, concept, reviewTimes);
+	const conceptId2 = await createConcept(userId, concept2, reviewTimes);
 	
+
+	const conceptArray = await getConcepts(userId);
+	console.log(conceptArray);
+
+
 	// delete a concept
 	await deleteConcept(conceptId);
+
 }
 
 main();
